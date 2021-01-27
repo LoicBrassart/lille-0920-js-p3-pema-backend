@@ -9,7 +9,6 @@ app.use(passport.initialize());
 /* --------------------------------------------------------------------- Routes */
 
 app.use("/auth", require("./routes/auth"));
-app.use("/", require("./routes/misc"));
 
 /* --------------------------------------------------------------------- 404 and server launch */
 app.use((req, res) => {
