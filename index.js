@@ -1,4 +1,4 @@
-const { port } = require("./conf.js");
+const { port } = require("./conf");
 const express = require("express");
 const app = express();
 
