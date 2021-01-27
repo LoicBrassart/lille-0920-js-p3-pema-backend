@@ -1,15 +1,27 @@
-require('dotenv').config(); //process.env is created
-const mysql = require('mysql2');
+const mysql = require("mysql2");
+require("dotenv").config();
 
-const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, BACKEND_PORT } = process.env;
+const {
+  DB_HOST,
+  DB_USER,
+  DB_PASS,
+  DB_SCHEMA,
+  BACK_PORT,
+  JWT_SALTROUNDS,
+  JWT_SECRET,
+} = process.env;
+
 const db = mysql.createPool({
-    host: DB_HOST,
-    user: DB_USER,
-    database: DB_DATABASE,
-    password: DB_PASSWORD,
+  connectionLimit: 10,
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASS,
+  database: DB_SCHEMA,
 });
 
 module.exports = {
-    db,
-    port: BACKEND_PORT
-}
+  db,
+  backPort: BACK_PORT,
+  jwt_rounds: parseInt(JWT_SALTROUNDS),
+  jwt_secret: JWT_SECRET,
+};
