@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { port } = require("./conf");
+const { backPort } = require("./conf");
 
 const app = express();
 app.use(express.json());
@@ -11,8 +11,10 @@ app.get("/", (req, res) => {
   res.send("Hi there!");
 });
 
-app.listen(port, () => {
-  console.log(`API avalable on http://localhost:${port}`);
+app.listen(backPort, () => {
+  console.log(`API avalable on http://localhost:${backPort}`);
 });
 
-app.use("/", require("./routes/timeline"));
+app.use("/admin", require("./routes/timeline"));
+
+app.use("/admin", require("./routes/chapters"));
