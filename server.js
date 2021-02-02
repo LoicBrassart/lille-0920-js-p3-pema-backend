@@ -6,10 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("Hi there!");
-});
-
 app.listen(backPort, () => {
   console.log(`API avalable on http://localhost:${backPort}`);
 });
