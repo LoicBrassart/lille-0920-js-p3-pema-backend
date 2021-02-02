@@ -1,21 +1,30 @@
-const express = require("express");
-const { backPort } = require("./conf");
-const passport = require("passport");
+'use strict';
 
+require('dotenv').config();
+
+const db = require('./models');
+const errorHandler = require('./middleware/errorHandler');
+const express = require('express');
+const routes = require('./routes');
+const cors = require('cors');
 const app = express();
+
+app.options('*', cors());
+app.use(cors({ origin: 'http://localhost:3000' }));
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(passport.initialize());
 
-/* --------------------------------------------------------------------- Routes */
+// Serve static files in production.
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 
-app.use("/auth", require("./routes/auth"));
+app.use(routes);
+app.use(errorHandler);
 
-/* --------------------------------------------------------------------- 404 and server launch */
-app.use((req, res) => {
-  const msg = `Page not found: ${req.url}`;
-  res.status(404).send(msg);
-});
+const PORT = process.env.PORT || 8000;
 
-app.listen(backPort, () => {
-  console.log(`API root available at: http://localhost:${backPort}/`);
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => console.log(`App listening at http://localhost:${PORT}`));
 });
