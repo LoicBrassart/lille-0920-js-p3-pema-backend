@@ -1,39 +1,3 @@
-# SERN-Auth-Template
-
-**S**QL, **E**xpress, **R**eact, and **N**ode.js
-
-As a web developer working on multiple applications that require authentication, I want a template that I can utilize to quickly and efficiently add standardized authentication to any of my applications.
-
-The live app is hosted by Heroku at [sern-auth-template.herokuapp.com](https://sern-auth-template.herokuapp.com/).
-
-## Description:
-
-This template uses the **MVC** design pattern.
-
-The user table uses an **unsigned** auto-incremented primary key. This primary key is used to generate an authentication cookie via [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken). This cookie is checked when accessing the site so that returning users don't need to log in again. The state of this asynchronous authentication check is saved via React's Context API in a store.
-
-**Data validation** happens on both the front end in the relevant components for **good UX** and on the back end in the Sequelize models in order to ensure **clean data**.
-
-Finally, **nodemailer** is used to send password reset emails with a clickable link that expires in 10 minutes.
-
-## Technologies Used:
-
-* SQL database **CRUD functions** via [Sequelize ORM](https://sequelize.org/)
-    * [Documentation](https://sequelize.org/v5/)
-    * [API Reference](https://sequelize.org/v5/identifiers.html)
-* [Express](https://expressjs.com/) web framework utilized to build **RESTful API** routing
-    * [API Reference](https://expressjs.com/en/api.html)
-* [React](https://reactjs.org/) library provides front end UI
-    * [Documentation](https://reactjs.org/docs/getting-started.html)
-* [Node.js](https://nodejs.org/en/) runtime environment
-
-### Other Technologies:
-
-* **Bootstrap** version 4.5.3 is hosted locally. Both vanilla Bootstrap and React Bootstrap are included.
-* **FontAwesome** free version 5.15.1 (CSS version) is hosted locally.
-* **Nodemailer** is used to send password reset emails.
-* **Bcrypt** is used to hash passwords before database storage.
-* **JSON Web Token** is used to tokenize authorization cookies.
 
 ## Local Installation and Usage:
 
@@ -63,13 +27,6 @@ URL_PREFIX=https://www.YourWebSite.com
 
 The URL_PREFIX env var is used by the emailer in order to generate clickable links. If you don't want to set this as an environment variable, you can hard code your url in `/middleware/mailer.js`.
 
-### An Additional Note:
-
-* As this template deals with **confidential information** such as user passwords, be sure to obtain a security certificate and **redirect from http:// to https://** routes in production.
-
-## FAQ:
-
-* Q: Why SQL instead of Mongo?
 
     * A: Simply because most hosting providers offer SQL as part of a shared hosting package while Mongo requires VPS services.
 
