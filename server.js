@@ -7,7 +7,6 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  console.log("GET / was called!");
   res.send("Hi there!");
 });
 
