@@ -1,21 +1,15 @@
 const express = require("express");
+const cors = require("cors");
 const { backPort } = require("./conf");
-const passport = require("passport");
 
 const app = express();
 app.use(express.json());
-app.use(passport.initialize());
-
-/* --------------------------------------------------------------------- Routes */
-
-app.use("/auth", require("./routes/auth"));
-
-/* --------------------------------------------------------------------- 404 and server launch */
-app.use((req, res) => {
-  const msg = `Page not found: ${req.url}`;
-  res.status(404).send(msg);
-});
+app.use(cors());
 
 app.listen(backPort, () => {
-  console.log(`API root available at: http://localhost:${backPort}/`);
+  console.log(`API avalable on http://localhost:${backPort}`);
 });
+
+app.use("/admin", require("./routes/timeline"));
+
+app.use("/admin", require("./routes/chapters"));
