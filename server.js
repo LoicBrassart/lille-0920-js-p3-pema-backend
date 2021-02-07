@@ -13,3 +13,5 @@ app.listen(backPort, () => {
 app.use("/admin", require("./routes/timeline"));
 
 app.use("/admin", require("./routes/chapters"));
+
+app.use("/admin", require("./routes/clients"));
