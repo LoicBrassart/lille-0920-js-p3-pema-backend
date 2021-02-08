@@ -17,7 +17,7 @@ router.get("/thirdchapters/:id", async (req, res) => {
   const id = req.params.id;
   try {
     timeline = await db.query(
-      `SELECT id, title, first_paragraph, second_paragraph from third_chapter WHERE id=?`,
+      `SELECT id, title, paragraph from third_chapter WHERE id=?`,
       [id]
     );
   } catch (err) {

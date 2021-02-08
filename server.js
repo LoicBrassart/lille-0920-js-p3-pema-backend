@@ -14,5 +14,6 @@ app.use("/admin", require("./routes/timeline"));
 
 app.use("/admin", require("./routes/chapters"));
 
-app.use("/admin", require("./routes/clients"));
 app.use("/admin", require("./routes/third_chapters"));
+
+app.use("/admin", require("./routes/clients"));
