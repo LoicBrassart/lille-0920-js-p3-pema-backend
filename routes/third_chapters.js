@@ -2,22 +2,22 @@ const { db } = require("../conf");
 const express = require("express");
 const router = express.Router();
 
-router.get("/timeline", async (req, res) => {
-  let timelines;
+router.get("/thirdchapters", async (req, res) => {
+  let chapters;
   try {
-    timelines = await db.query(`SELECT * from timeline`);
-    res.json(timelines[0]);
+    chapters = await db.query(`SELECT * from third_chapter`);
   } catch (error) {
     res.status(500).send("Nope, sorry, I iz broken !");
   }
+  return res.json(chapters[0]);
 });
 
-router.get("/timeline/:id", async (req, res) => {
+router.get("/thirdchapters/:id", async (req, res) => {
   let timeline;
   const id = req.params.id;
   try {
     timeline = await db.query(
-      `SELECT id, title, paragraph from timeline WHERE id=?`,
+      `SELECT id, title, first_paragraph, second_paragraph from third_chapter WHERE id=?`,
       [id]
     );
   } catch (err) {
@@ -26,31 +26,33 @@ router.get("/timeline/:id", async (req, res) => {
   return res.json(timeline[0]);
 });
 
-router.post("/timeline", async (req, res) => {
+router.post("/thirdchapters", async (req, res) => {
   try {
-    const response = await db.query(`INSERT INTO timeline SET ?`, [req.body]);
+    const response = await db.query(`INSERT INTO third_chapter SET ?`, [
+      req.body,
+    ]);
     res.status(201).send(req.body);
   } catch (err) {
     res.status(500).send("Nope, sorry, I iz broken !", err);
   }
 });
 
-router.delete("/timeline/:id", async (req, res) => {
+router.delete("/thirdchapters/:id", async (req, res) => {
   let timeline;
   const id = req.params.id;
   try {
-    timeline = await db.query(`DELETE FROM timeline WHERE id=?`, [id]);
+    timeline = await db.query(`DELETE FROM third_chapter WHERE id=?`, [id]);
   } catch (err) {
     return res.status(500).send("Nope, sorry, I iz broken !");
   }
   return res.status(201).send("deleted successfully");
 });
 
-router.put("/timeline/:id", async (req, res) => {
+router.put("/thirdchapters/:id", async (req, res) => {
   const id = req.params.id;
   const newTimeline = req.body;
   try {
-    await db.query(`UPDATE timeline SET ? WHERE id=?`, [newTimeline, id]);
+    await db.query(`UPDATE third_chapter SET ? WHERE id=?`, [newTimeline, id]);
   } catch (err) {
     return res.status(500).send("Nope, sorry, I iz broken !");
   }
