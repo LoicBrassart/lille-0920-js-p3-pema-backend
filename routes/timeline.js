@@ -2,7 +2,7 @@ const { db } = require("../conf");
 const express = require("express");
 const router = express.Router();
 
-router.get("/timeline", async (req, res) => {
+router.get("/", async (req, res) => {
   let timelines;
   try {
     timelines = await db.query(`SELECT * from timeline`);
@@ -12,7 +12,7 @@ router.get("/timeline", async (req, res) => {
   return res.json(timelines[0]);
 });
 
-router.get("/timeline/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   let timeline;
   const id = req.params.id;
   try {
@@ -26,7 +26,7 @@ router.get("/timeline/:id", async (req, res) => {
   return res.json(timeline[0]);
 });
 
-router.post("/timeline", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const response = await db.query(`INSERT INTO timeline SET ?`, [req.body]);
     res.status(201).send(req.body);
@@ -35,7 +35,7 @@ router.post("/timeline", async (req, res) => {
   }
 });
 
-router.delete("/timeline/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   let timeline;
   const id = req.params.id;
   try {
@@ -46,7 +46,7 @@ router.delete("/timeline/:id", async (req, res) => {
   return res.status(201).send("deleted successfully");
 });
 
-router.put("/timeline/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = req.params.id;
   const newTimeline = req.body;
   try {

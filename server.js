@@ -14,14 +14,14 @@ app.listen(backPort, () => {
 
 app.use("/auth", require("./routes/auth"));
 
-app.use("/admin", require("./routes/timeline"));
+app.use("/timeline", require("./routes/timeline"));
 
-app.use("/admin", require("./routes/chapters"));
+app.use("/chapters", require("./routes/chapters"));
 
-app.use("/admin", require("./routes/third_chapters"));
+app.use("/thirdchapters", require("./routes/third_chapters"));
 
-app.use("/admin", require("./routes/clients"));
+app.use("/clients", require("./routes/clients"));
 
-app.use("/admin", require("./routes/testimonies"));
+app.use("/testimonies", require("./routes/testimonies"));
 
-app.use("/admin", require("./routes/partners"));
+app.use("/partners", require("./routes/partners"));

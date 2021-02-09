@@ -2,7 +2,7 @@ const { db } = require("../conf");
 const express = require("express");
 const router = express.Router();
 
-router.get("/testimonies", async (req, res) => {
+router.get("/", async (req, res) => {
   let testimonies;
   try {
     testimonies = await db.query(`SELECT * from testimonies`);
@@ -12,7 +12,7 @@ router.get("/testimonies", async (req, res) => {
   return res.json(testimonies[0]);
 });
 
-router.get("/testimonies/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   let testimonies;
   const id = req.params.id;
   try {
@@ -26,7 +26,7 @@ router.get("/testimonies/:id", async (req, res) => {
   return res.json(testimonies[0]);
 });
 
-router.post("/testimonies", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const response = await db.query(`INSERT INTO testimonies SET ?`, [
       req.body,
@@ -37,7 +37,7 @@ router.post("/testimonies", async (req, res) => {
   }
 });
 
-router.delete("/testimonies/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   let timeline;
   const id = req.params.id;
   try {
@@ -48,7 +48,7 @@ router.delete("/testimonies/:id", async (req, res) => {
   return res.status(201).send("deleted successfully");
 });
 
-router.put("/thirdchapters/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = req.params.id;
   const newTimeline = req.body;
   try {
