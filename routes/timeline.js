@@ -6,10 +6,10 @@ router.get("/timeline", async (req, res) => {
   let timelines;
   try {
     timelines = await db.query(`SELECT * from timeline`);
-    res.json(timelines[0]);
   } catch (error) {
     res.status(500).send("Nope, sorry, I iz broken !");
   }
+  return res.json(timelines[0]);
 });
 
 router.get("/timeline/:id", async (req, res) => {
