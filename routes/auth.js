@@ -16,7 +16,6 @@ router.post("/signup", async (req, res) => {
     const token = jwt.sign(formData, jwt_secret);
     res.status(201).json(token);
   } catch (e) {
-    console.log(e);
     res.status(500).json(e);
   }
 });
