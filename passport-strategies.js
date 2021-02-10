@@ -11,25 +11,21 @@ passport.use(
       usernameField: "email",
       passwordField: "password",
     },
-    (formMail, formPassword, done) => {
+    async (formMail, formPassword, done) => {
       try {
-        db.query(
+        const [
+          sqlRes,
+        ] = await db.query(
           "SELECT id, email, password, firstname, lastname FROM users WHERE email=?",
-          [formMail],
-          (err, sqlRes) => {
-            if (err) {
-              return done(e);
-            } else {
-              if (!sqlRes.length) return done(null, false);
-              const { id, email, password, firstname, lastname } = sqlRes[0];
-              const isPasswordOK = bcrypt.compareSync(formPassword, password);
-              if (!isPasswordOK) return done(null, false, "Wrong password!");
-
-              const user = { id, email, firstname, lastname };
-              return done(null, user);
-            }
-          }
+          [formMail]
         );
+        if (!sqlRes.length) return done(null, false);
+        const { id, email, password, firstname, lastname } = sqlRes[0];
+        const isPasswordOK = bcrypt.compareSync(formPassword, password);
+        if (!isPasswordOK) return done(null, false, "Wrong password!");
+
+        const user = { id, email, firstname, lastname };
+        return done(null, user);
       } catch (e) {
         return done(e);
       }

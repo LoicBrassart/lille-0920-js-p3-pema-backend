@@ -3,13 +3,13 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  let timelines;
+  let chapters;
   try {
-    timelines = await db.query(`SELECT * from timeline`);
+    chapters = await db.query(`SELECT * from third_chapter`);
   } catch (error) {
     res.status(500).send("Nope, sorry, I iz broken !");
   }
-  return res.json(timelines[0]);
+  return res.json(chapters[0]);
 });
 
 router.get("/:id", async (req, res) => {
@@ -17,7 +17,7 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     timeline = await db.query(
-      `SELECT id, title, paragraph from timeline WHERE id=?`,
+      `SELECT id, title, paragraph from third_chapter WHERE id=?`,
       [id]
     );
   } catch (err) {
@@ -28,7 +28,9 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const response = await db.query(`INSERT INTO timeline SET ?`, [req.body]);
+    const response = await db.query(`INSERT INTO third_chapter SET ?`, [
+      req.body,
+    ]);
     res.status(201).send(req.body);
   } catch (err) {
     res.status(500).send("Nope, sorry, I iz broken !", err);
@@ -39,7 +41,7 @@ router.delete("/:id", async (req, res) => {
   let timeline;
   const id = req.params.id;
   try {
-    timeline = await db.query(`DELETE FROM timeline WHERE id=?`, [id]);
+    timeline = await db.query(`DELETE FROM third_chapter WHERE id=?`, [id]);
   } catch (err) {
     return res.status(500).send("Nope, sorry, I iz broken !");
   }
@@ -50,7 +52,7 @@ router.put("/:id", async (req, res) => {
   const id = req.params.id;
   const newTimeline = req.body;
   try {
-    await db.query(`UPDATE timeline SET ? WHERE id=?`, [newTimeline, id]);
+    await db.query(`UPDATE third_chapter SET ? WHERE id=?`, [newTimeline, id]);
   } catch (err) {
     return res.status(500).send("Nope, sorry, I iz broken !");
   }
