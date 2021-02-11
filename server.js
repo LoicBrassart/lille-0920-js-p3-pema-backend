@@ -13,15 +13,9 @@ app.listen(backPort, () => {
 });
 
 app.use("/auth", require("./routes/auth"));
-
 app.use("/timeline", require("./routes/timeline"));
-
 app.use("/chapters", require("./routes/chapters"));
-
 app.use("/thirdchapters", require("./routes/third_chapters"));
-
 app.use("/clients", require("./routes/clients"));
-
 app.use("/testimonies", require("./routes/testimonies"));
-
 app.use("/partners", require("./routes/partners"));
